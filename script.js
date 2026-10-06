@@ -1,6 +1,6 @@
 /* =========================================================
    BAAZIGAR PHOTOGRAPHY
-   JAVASCRIPT
+   FINAL JAVASCRIPT
 ========================================================= */
 
 
@@ -16,12 +16,12 @@ window.addEventListener("load", function () {
             loader.classList.add("hide");
         }
 
-    }, 1000);
+    }, 900);
 
 });
 
 
-// Safety: loader যেন কোনো কারণে আটকে না থাকে
+// Loader safety
 
 setTimeout(function () {
 
@@ -34,11 +34,14 @@ setTimeout(function () {
 
 // ================= NAVBAR =================
 
-const navbar = document.getElementById("navbar");
+const navbar =
+    document.getElementById("navbar");
+
 
 window.addEventListener("scroll", function () {
 
     if (!navbar) return;
+
 
     if (window.scrollY > 50) {
 
@@ -79,33 +82,30 @@ function closeMenu() {
 
 if (menuBtn && mobileMenu) {
 
-    menuBtn.addEventListener(
-        "click",
-        function () {
+    menuBtn.addEventListener("click", function () {
 
-            const isOpen =
-                mobileMenu.classList.toggle("active");
+        const open =
+            mobileMenu.classList.toggle("active");
 
-            menuBtn.classList.toggle(
-                "active",
-                isOpen
-            );
 
-            document.body.classList.toggle(
-                "no-scroll",
-                isOpen
-            );
+        menuBtn.classList.toggle(
+            "active",
+            open
+        );
 
-        }
-    );
+
+        document.body.classList.toggle(
+            "no-scroll",
+            open
+        );
+
+    });
 
 }
 
 
 document
-    .querySelectorAll(
-        ".mobile-link, .mobile-book"
-    )
+    .querySelectorAll(".mobile-link, .mobile-book")
     .forEach(function (link) {
 
         link.addEventListener(
@@ -116,7 +116,7 @@ document
     });
 
 
-// ================= SCROLL REVEAL =================
+// ================= REVEAL =================
 
 const revealElements =
     document.querySelectorAll(".reveal");
@@ -124,7 +124,7 @@ const revealElements =
 
 if ("IntersectionObserver" in window) {
 
-    const observer =
+    const revealObserver =
         new IntersectionObserver(
 
             function (entries) {
@@ -138,7 +138,7 @@ if ("IntersectionObserver" in window) {
                                 .classList
                                 .add("visible");
 
-                            observer.unobserve(
+                            revealObserver.unobserve(
                                 entry.target
                             );
 
@@ -159,7 +159,9 @@ if ("IntersectionObserver" in window) {
     revealElements.forEach(
         function (element) {
 
-            observer.observe(element);
+            revealObserver.observe(
+                element
+            );
 
         }
     );
@@ -169,7 +171,9 @@ if ("IntersectionObserver" in window) {
     revealElements.forEach(
         function (element) {
 
-            element.classList.add("visible");
+            element.classList.add(
+                "visible"
+            );
 
         }
     );
@@ -177,7 +181,7 @@ if ("IntersectionObserver" in window) {
 }
 
 
-// ================= CUSTOM CURSOR =================
+// ================= CURSOR =================
 
 const cursorDot =
     document.querySelector(".cursor-dot");
@@ -206,14 +210,19 @@ if (
         "mousemove",
         function (event) {
 
-            mouseX = event.clientX;
-            mouseY = event.clientY;
+            mouseX =
+                event.clientX;
+
+            mouseY =
+                event.clientY;
+
 
             cursorDot.style.left =
                 mouseX + "px";
 
             cursorDot.style.top =
                 mouseY + "px";
+
 
             mouseGlow.style.left =
                 mouseX + "px";
@@ -225,13 +234,13 @@ if (
     );
 
 
-    function animateCursor() {
+    function cursorAnimation() {
 
         ringX +=
-            (mouseX - ringX) * 0.15;
+            (mouseX - ringX) * .15;
 
         ringY +=
-            (mouseY - ringY) * 0.15;
+            (mouseY - ringY) * .15;
 
 
         cursorRing.style.left =
@@ -242,50 +251,18 @@ if (
 
 
         requestAnimationFrame(
-            animateCursor
+            cursorAnimation
         );
 
     }
 
 
-    animateCursor();
-
-
-    document
-        .querySelectorAll(
-            "a, button, .gallery-card, .tilt-card"
-        )
-        .forEach(function (element) {
-
-            element.addEventListener(
-                "mouseenter",
-                function () {
-
-                    cursorRing
-                        .classList
-                        .add("active");
-
-                }
-            );
-
-
-            element.addEventListener(
-                "mouseleave",
-                function () {
-
-                    cursorRing
-                        .classList
-                        .remove("active");
-
-                }
-            );
-
-        });
+    cursorAnimation();
 
 }
 
 
-// ================= HERO 3D EFFECT =================
+// ================= HERO 3D =================
 
 const photoStage =
     document.getElementById("photoStage");
@@ -317,40 +294,18 @@ if (photoStage) {
 
 
             const rotateY =
-                (
-                    (
-                        x -
-                        rect.width / 2
-                    )
-                    /
-                    (
-                        rect.width / 2
-                    )
-                )
-                * 8;
+                ((x - rect.width / 2) /
+                (rect.width / 2)) * 8;
 
 
             const rotateX =
-                -
-                (
-                    (
-                        y -
-                        rect.height / 2
-                    )
-                    /
-                    (
-                        rect.height / 2
-                    )
-                )
-                * 8;
+                -((y - rect.height / 2) /
+                (rect.height / 2)) * 8;
 
 
             photoStage.style.transform =
-                "rotateX(" +
-                rotateX +
-                "deg) rotateY(" +
-                rotateY +
-                "deg)";
+                `rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)`;
 
         }
     );
@@ -369,17 +324,15 @@ if (photoStage) {
 }
 
 
-// ================= 3D TILT CARDS =================
+// ================= TILT CARDS =================
 
 document
     .querySelectorAll(".tilt-card")
     .forEach(function (card) {
 
-
         card.addEventListener(
             "mousemove",
             function (event) {
-
 
                 if (window.innerWidth <= 700) {
                     return;
@@ -401,43 +354,20 @@ document
 
 
                 const rotateY =
-                    (
-                        (
-                            x -
-                            rect.width / 2
-                        )
-                        /
-                        (
-                            rect.width / 2
-                        )
-                    )
-                    * 3;
+                    ((x - rect.width / 2) /
+                    (rect.width / 2)) * 2.5;
 
 
                 const rotateX =
-                    -
-                    (
-                        (
-                            y -
-                            rect.height / 2
-                        )
-                        /
-                        (
-                            rect.height / 2
-                        )
-                    )
-                    * 3;
+                    -((y - rect.height / 2) /
+                    (rect.height / 2)) * 2.5;
 
 
                 card.style.transform =
-                    "perspective(1000px) " +
-                    "rotateX(" +
-                    rotateX +
-                    "deg) " +
-                    "rotateY(" +
-                    rotateY +
-                    "deg) " +
-                    "translateY(-4px)";
+                    `perspective(1000px)
+                     rotateX(${rotateX}deg)
+                     rotateY(${rotateY}deg)
+                     translateY(-5px)`;
 
             }
         );
@@ -447,96 +377,291 @@ document
             "mouseleave",
             function () {
 
-                card.style.transform =
-                    "perspective(1000px) " +
-                    "rotateX(0deg) " +
-                    "rotateY(0deg) " +
-                    "translateY(0)";
+                card.style.transform = "";
 
             }
         );
-
-
-    });
-
-
-// ================= MAGNETIC BUTTON =================
-
-document
-    .querySelectorAll(".magnetic")
-    .forEach(function (button) {
-
-
-        button.addEventListener(
-            "mousemove",
-            function (event) {
-
-
-                if (window.innerWidth <= 700) {
-                    return;
-                }
-
-
-                const rect =
-                    button.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX -
-                    rect.left -
-                    rect.width / 2;
-
-
-                const y =
-                    event.clientY -
-                    rect.top -
-                    rect.height / 2;
-
-
-                button.style.transform =
-                    "translate(" +
-                    x * 0.12 +
-                    "px, " +
-                    y * 0.12 +
-                    "px)";
-
-            }
-        );
-
-
-        button.addEventListener(
-            "mouseleave",
-            function () {
-
-                button.style.transform =
-                    "translate(0,0)";
-
-            }
-        );
-
 
     });
 
 
 // =========================================================
-// IMAGE LIGHTBOX
+// COLLECTION INFORMATION
 // =========================================================
+
+const collections = {
+
+
+    model: {
+
+        title:
+            "Models Pictures",
+
+        number:
+            "01 — MODEL COLLECTION",
+
+        images: [
+
+            "images/Model/model1.jpeg",
+            "images/Model/model2.jpeg",
+            "images/Model/model3.jpeg",
+            "images/Model/model4.jpeg",
+            "images/Model/model5.jpeg",
+            "images/Model/model6.jpeg"
+
+        ]
+
+    },
+
+
+    wedding: {
+
+        title:
+            "Wedding Pictures",
+
+        number:
+            "02 — WEDDING COLLECTION",
+
+        images: [
+
+            "images/Wedding/wedding1.png",
+            "images/Wedding/wedding2.png",
+            "images/Wedding/wedding3.png",
+            "images/Wedding/wedding4.png",
+            "images/Wedding/wedding5.png",
+            "images/Wedding/wedding6.png"
+
+        ]
+
+    },
+
+
+    birthday: {
+
+        title:
+            "Birthday Pictures",
+
+        number:
+            "03 — BIRTHDAY COLLECTION",
+
+        images: [
+
+            "images/Birthday/birthday1.jpeg",
+            "images/Birthday/birthday2.jpeg",
+            "images/Birthday/birthday3.jpeg",
+            "images/Birthday/birthday4.jpeg",
+            "images/Birthday/birthday5.jpeg",
+            "images/Birthday/birthday6.jpeg",
+            "images/Birthday/birthday7.jpeg"
+
+        ]
+
+    }
+
+};
+
+
+// ================= POPUP ELEMENTS =================
+
+const galleryPopup =
+    document.getElementById(
+        "galleryPopup"
+    );
+
+
+const galleryPopupBody =
+    document.getElementById(
+        "galleryPopupBody"
+    );
+
+
+const galleryPopupTitle =
+    document.getElementById(
+        "galleryPopupTitle"
+    );
+
+
+const galleryNumber =
+    document.getElementById(
+        "galleryNumber"
+    );
+
+
+const galleryPopupClose =
+    document.getElementById(
+        "galleryPopupClose"
+    );
+
+
+// ================= LIGHTBOX =================
 
 const lightbox =
-    document.getElementById("lightbox");
+    document.getElementById(
+        "lightbox"
+    );
+
 
 const lightboxImage =
-    document.getElementById("lightboxImage");
+    document.getElementById(
+        "lightboxImage"
+    );
+
 
 const lightboxTitle =
-    document.getElementById("lightboxTitle");
+    document.getElementById(
+        "lightboxTitle"
+    );
+
 
 const lightboxClose =
-    document.getElementById("lightboxClose");
+    document.getElementById(
+        "lightboxClose"
+    );
 
+
+// =========================================================
+// OPEN COLLECTION
+// =========================================================
+
+function openGallery(type) {
+
+    const collection =
+        collections[type];
+
+
+    if (!collection) {
+
+        console.error(
+            "Collection not found:",
+            type
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !galleryPopup ||
+        !galleryPopupBody
+    ) {
+
+        return;
+
+    }
+
+
+    galleryPopupTitle.textContent =
+        collection.title;
+
+
+    galleryNumber.textContent =
+        collection.number;
+
+
+    galleryPopupBody.innerHTML =
+        "";
+
+
+    collection.images.forEach(
+
+        function (imagePath, index) {
+
+
+            const photo =
+                document.createElement(
+                    "div"
+                );
+
+
+            photo.className =
+                "popup-photo";
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.src =
+                imagePath;
+
+
+            image.alt =
+                collection.title +
+                " " +
+                (index + 1);
+
+
+            image.loading =
+                "lazy";
+
+
+            // Image missing হলে Console-এ দেখাবে
+
+            image.addEventListener(
+                "error",
+                function () {
+
+                    console.error(
+                        "IMAGE NOT FOUND:",
+                        imagePath
+                    );
+
+                }
+            );
+
+
+            photo.appendChild(
+                image
+            );
+
+
+            // Individual photo fullscreen
+
+            photo.addEventListener(
+                "click",
+                function () {
+
+                    openLightbox(
+                        imagePath,
+                        collection.title +
+                        " — Photo " +
+                        (index + 1)
+                    );
+
+                }
+            );
+
+
+            galleryPopupBody.appendChild(
+                photo
+            );
+
+        }
+
+    );
+
+
+    galleryPopup.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "no-scroll"
+    );
+
+}
+
+
+// ================= COLLECTION CARD CLICK =================
 
 document
-    .querySelectorAll(".gallery-card")
+    .querySelectorAll(
+        ".collection-card"
+    )
     .forEach(function (card) {
 
 
@@ -545,57 +670,13 @@ document
             function () {
 
 
-                if (
-                    !lightbox ||
-                    !lightboxImage
-                ) {
-                    return;
-                }
-
-
-                const image =
+                const type =
                     card.getAttribute(
-                        "data-image"
+                        "data-gallery"
                     );
 
 
-                const title =
-                    card.getAttribute(
-                        "data-title"
-                    );
-
-
-                if (!image) {
-                    return;
-                }
-
-
-                lightboxImage.src =
-                    image;
-
-
-                lightboxImage.alt =
-                    title ||
-                    "Baazigar Photography";
-
-
-                if (lightboxTitle) {
-
-                    lightboxTitle.textContent =
-                        title ||
-                        "Baazigar Photography";
-
-                }
-
-
-                lightbox.classList.add(
-                    "active"
-                );
-
-
-                document.body
-                    .classList
-                    .add("no-scroll");
+                openGallery(type);
 
             }
         );
@@ -603,6 +684,101 @@ document
 
     });
 
+
+// ================= CLOSE GALLERY =================
+
+function closeGallery() {
+
+    if (!galleryPopup) {
+        return;
+    }
+
+
+    galleryPopup.classList.remove(
+        "active"
+    );
+
+
+    if (
+        !lightbox ||
+        !lightbox.classList.contains(
+            "active"
+        )
+    ) {
+
+        document.body.classList.remove(
+            "no-scroll"
+        );
+
+    }
+
+}
+
+
+if (galleryPopupClose) {
+
+    galleryPopupClose.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+            closeGallery();
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// LIGHTBOX
+// =========================================================
+
+function openLightbox(
+    imagePath,
+    title
+) {
+
+    if (
+        !lightbox ||
+        !lightboxImage
+    ) {
+
+        return;
+
+    }
+
+
+    lightboxImage.src =
+        imagePath;
+
+
+    lightboxImage.alt =
+        title;
+
+
+    if (lightboxTitle) {
+
+        lightboxTitle.textContent =
+            title;
+
+    }
+
+
+    lightbox.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "no-scroll"
+    );
+
+}
+
+
+// ================= CLOSE LIGHTBOX =================
 
 function closeLightbox() {
 
@@ -616,21 +792,35 @@ function closeLightbox() {
     );
 
 
-    document.body
-        .classList
-        .remove("no-scroll");
-
-
     setTimeout(
         function () {
 
             if (lightboxImage) {
-                lightboxImage.src = "";
+
+                lightboxImage.src =
+                    "";
+
             }
 
         },
-        300
+        250
     );
+
+
+    // Collection popup open থাকলে body locked থাকবে
+
+    if (
+        !galleryPopup ||
+        !galleryPopup.classList.contains(
+            "active"
+        )
+    ) {
+
+        document.body.classList.remove(
+            "no-scroll"
+        );
+
+    }
 
 }
 
@@ -666,32 +856,61 @@ if (lightbox) {
 }
 
 
-// ================= ESCAPE KEY =================
+// ================= ESC KEY =================
 
 document.addEventListener(
     "keydown",
     function (event) {
 
+        if (
+            event.key !==
+            "Escape"
+        ) {
 
-        if (event.key === "Escape") {
+            return;
 
-            closeMenu();
+        }
+
+
+        if (
+            lightbox &&
+            lightbox.classList.contains(
+                "active"
+            )
+        ) {
 
             closeLightbox();
 
+            return;
+
         }
+
+
+        if (
+            galleryPopup &&
+            galleryPopup.classList.contains(
+                "active"
+            )
+        ) {
+
+            closeGallery();
+
+            return;
+
+        }
+
+
+        closeMenu();
 
     }
 );
 
 
 // ================= IMAGE ERROR CHECK =================
-// ভুল filename থাকলে browser console-এ দেখাবে
 
 document
     .querySelectorAll("img")
     .forEach(function (image) {
-
 
         image.addEventListener(
             "error",
@@ -699,11 +918,12 @@ document
 
                 console.error(
                     "Image not found:",
-                    image.getAttribute("src")
+                    image.getAttribute(
+                        "src"
+                    )
                 );
 
             }
         );
-
 
     });
